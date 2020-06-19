@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Student;
+use App\User;
+use Auth;
+use Image;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 class StudentController extends Controller
@@ -34,15 +37,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::find(Auth::user()->id);
         $student = new Student;
         $student->firstName = $request->get('firstname');
         $student->lastName = $request->get('lastname');
         $student->class = $request->get('class');
         $student->description = $request->get('description');
-        $student->picture = $request->get('picture');
+        $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). ".".$extension;
+            $file->move('image/', $filename);
+            $student->picture = $filename;
         $student->activeFollowup = $request->get('activeFollowup');
+        $student->user_id = $user->id;
         $student->save();
-        return redirect('admin.dashboard');
+        return redirect('admin/dashboard');
     }
 
     /**
@@ -64,7 +73,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        return view('admin/editStudent', compact('student'));
     }
 
     /**
@@ -76,9 +86,26 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find(Auth::user()->id);
+        $student = Student::find($id);
+        $student->firstName = $request->get('firstname');
+        $student->lastName = $request->get('lastname');
+        $student->class = $request->get('class');
+        $student->description = $request->get('description');
+        if ($request->hasfile('picture')){
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). ".".$extension;
+            $file->move('image/', $filename);
+            $student->picture = $filename;
+        }
+        $student->activeFollowup = $request->get('activeFollowup');
+        $student->user_id = $user->id;
+        $student->save();
+        return redirect('admin/dashboard');
     }
 
+    
     /**
      * Remove the specified resource from storage.
      *

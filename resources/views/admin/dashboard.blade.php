@@ -12,7 +12,6 @@
       <a class="nav-link" data-toggle="tab" href="#menu1">Out Of FollowUp</a>
     </li>
   </ul>
-
   <!-- Tab panes -->
   <div class="tab-content">
     <div id="home" class="container tab-pane active"><br>
@@ -25,7 +24,7 @@
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th>Class</th>
-                    <th>Description</th>
+                    <th>Status</th>
                     <th>Picture</th>
                     <th>Action</th>
                 </tr>
@@ -37,11 +36,20 @@
                         <td>{{ $item->firstName}}</td>
                         <td>{{ $item->lastName}}</td>
                         <td>{{ $item->class}}</td>
-                        <td>{{ $item->description}}</td>
-                        <td>{{ $item->picture}}</td>
                         <td>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
+                          @if ($item->activeFollowup == 0)
+                            Out Of Followup
+                          @endif
+                          @if ($item->activeFollowup == 1)
+                            Follow up
+                          @endif
+                        </td>
+                        <td>
+                          <img class="mx-auto d-block" src="{{asset('image/'.$item->picture)}}" style="width: 50px;, height:50px;">
+                        </td>
+                        <td>
+                          <a href="{{route('students.edit',$item->id)}}">Edit</a> ||
+                          <a href="#">view</a>
                         </td>
                     </tr>
                  @endforeach 
@@ -49,6 +57,7 @@
         </table>
     </div>
     <div id="menu1" class="container tab-pane fade"><br>
+      <h4 class="text-center text-success">Views All Students Out Of FollowUP</h4> <br>
     </div>
   </div>
 </div>
