@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function (){
 
     Route::get('dashboard','DashboardController@index')->name('dashboard');
+  
     
 
 });
@@ -35,6 +36,11 @@ Route::group(['as'=>'user.','prefix'=>'user','namespace'=>'User','middleware'=>[
 });
 
 Route::resource('students','StudentController');
+Route::resource('users','UserController');
+Route::post('addcomments/{id}', 'CommentController@addComment')->name('addComments');
+Route::get('deletas/{id}', 'CommentController@delete')->name('deleteComments');
+
+
 
 
 

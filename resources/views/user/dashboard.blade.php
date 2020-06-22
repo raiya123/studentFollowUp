@@ -20,11 +20,9 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th>Class</th>
-                    <th>Status</th>
                     <th>Picture</th>
                     <th>Action</th>
                 </tr>
@@ -32,23 +30,14 @@
             <tbody>
                       @foreach ($student as $item)
                       <tr>
-                          <td>{{ $item->id}}</td>
                           <td>{{ $item->firstName}}</td>
                           <td>{{ $item->lastName}}</td>
                           <td>{{ $item->class}}</td>
                           <td>
-                            @if ($item->activeFollowup == 0)
-                            Out Of Followup
-                            @endif
-                            @if ($item->activeFollowup == 1)
-                            Follow up
-                          @endif
-                          </td>
-                          <td>
                             <img class="mx-auto d-block" src="{{asset('image/'.$item->picture)}}" style="width: 50px;, height:50px;">
                           </td>
                           <td>
-                              <a href="#">view</a>
+                              <a href="{{route('students.show',$item->id)}}" class="fa fa-eye" style='font-size:15px'></a>
                           </td>
                       </tr>
                    @endforeach 

@@ -48,8 +48,9 @@ class StudentController extends Controller
             $filename = time(). ".".$extension;
             $file->move('image/', $filename);
             $student->picture = $filename;
+        $student->tutor = $request->get('tutor');
         $student->activeFollowup = $request->get('activeFollowup');
-        $student->user_id = $user->id;
+        $student->user_id = $user->id ;
         $student->save();
         return redirect('admin/dashboard');
     }
@@ -62,7 +63,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+        return view('admin/viewDetailStudent', compact('student'));
     }
 
     /**
@@ -73,10 +75,12 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
+
         $student = Student::find($id);
         return view('admin/editStudent', compact('student'));
     }
 
+    
     /**
      * Update the specified resource in storage.
      *
@@ -99,6 +103,7 @@ class StudentController extends Controller
             $file->move('image/', $filename);
             $student->picture = $filename;
         }
+        $student->tutor = $request->get('tutor');
         $student->activeFollowup = $request->get('activeFollowup');
         $student->user_id = $user->id;
         $student->save();
@@ -117,3 +122,4 @@ class StudentController extends Controller
         //
     }
 }
+

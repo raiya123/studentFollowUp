@@ -36,8 +36,17 @@
                     </div>
                       <br>
                       <div class="form-group">
-                        <label for="">ActiveFollowUp</label>
-                          <input type="text" class="form-control" name="activeFollowup" value="{{$student->activeFollowup}}">
+                        <label for="">Status</label>
+                        <select name="activeFollowup" class="form-control">
+                          @foreach($student as $item)
+                          <option value="0" {{($student->activeFollowup == 0) ? 'selected' : ''}}>Out of FollowUp</option>
+                          <option value="1" {{($student->activeFollowup == 1) ? 'selected' : ''}}>Follow Up</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Tutor</label>
+                          <input type="text" class="form-control" name="tutor" value="{{$student->tutor}}">
                       </div>
                     <button class="btn btn-success mt-3" type="submit">Edit Student</button>
                     <a href="{{route('admin.dashboard')}}" class="btn btn-danger float-right">Go Back</a>

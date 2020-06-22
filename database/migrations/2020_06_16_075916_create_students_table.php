@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('class');
             $table->string('description');
             $table->string('picture');
+            $table->string('tutor')->nullable();
             $table->integer('activeFollowup')->default(0); // 0:not in fooloup, 1: in followup
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
