@@ -39,6 +39,7 @@ Route::resource('students','StudentController');
 Route::resource('users','UserController');
 Route::post('addcomments/{id}', 'CommentController@addComment')->name('addComments');
 Route::get('deletas/{id}', 'CommentController@delete')->name('deleteComments');
+Route::put('updates/{id}', 'CommentController@update')->name('updateComments');
 
 
 
