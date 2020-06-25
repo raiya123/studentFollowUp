@@ -29,6 +29,7 @@
             </thead>
             <tbody>
                       @foreach ($student as $item)
+                      @if ($item->activeFollowup == 1)
                       <tr>
                           <td>{{ $item->firstName}}</td>
                           <td>{{ $item->lastName}}</td>
@@ -40,12 +41,37 @@
                               <a href="{{route('students.show',$item->id)}}" class="fa fa-eye" style='font-size:15px'></a>
                           </td>
                       </tr>
+                      @endif
                    @endforeach 
             </tbody>
         </table>
     </div>
     <div id="menu1" class="container tab-pane fade"><br>
       <h4 class="text-center text-success">Views All Students Out Of FollowUP</h4> <br>
+      <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Class</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($student as $item)
+            @if ($item->activeFollowup == 0)
+                <tr>
+                    <td>{{ $item->firstName}}</td>
+                    <td>{{ $item->lastName}}</td>
+                    <td>{{ $item->class}}</td>
+                    <td>
+                      <img class="mx-auto d-block" src="{{asset('image/'.$item->picture)}}" style="width: 50px;, height:50px;">
+                    </td>
+                </tr>
+                @endif
+             @endforeach 
+        </tbody>   
+    </table>
     </div>
   </div>
 </div>

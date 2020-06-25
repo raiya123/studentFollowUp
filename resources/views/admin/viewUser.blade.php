@@ -49,11 +49,11 @@
                   </td>
                     <td>{{ $item->password}}</td>
                     <td>
-                      <a href="{{route('users.edit',$item->id)}}" class="fas fa-edit" style='font-size:15px'></a>
+                      <a href="{{route('users.edit',$item->id)}}" class=" btn fas fa-edit" style='font-size:15px'></a>
                       <form action="{{route('users.destroy',$item->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure to delete?')" class="fa fa-trash" style='font-size:15px'></button>
+                        <button type="submit" onclick="return confirm('Are you sure to delete?')" class="btn fa fa-trash" style='font-size:15px'></button>
                     </form>
                     </td>
                 </tr>

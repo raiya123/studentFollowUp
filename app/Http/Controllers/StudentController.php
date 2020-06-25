@@ -110,7 +110,23 @@ class StudentController extends Controller
         return redirect('admin/dashboard');
     }
 
-    
+
+    //// Update status student into out of followup List
+    public function updateToOutOfFollowup($id){
+        $student = Student::find($id);
+        $student->activeFollowup = false;
+        $student->save();
+        return back();
+    }
+
+     //// Update status student bakc to followup List
+     public function backToFollowup($id){
+        $student = Student::find($id);
+        $student->activeFollowup = true;
+        $student->save();
+        return back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
